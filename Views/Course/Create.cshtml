@@ -1,0 +1,27 @@
+﻿@model Course
+@{
+ViewData["Title"] = "Kurs Ekleme Sayfası";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Component.InvokeAsync("HeaderWithBackButton", new { pageTitle = ViewData["Title"] as string })
+
+
+<form asp-action="Create" asp-controller="Course" method="post">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TeacherId" class="form-label"></label>
+        <select asp-for="TeacherId" class="form-select" asp-items="@ViewBag.Teachers">
+            <option value="">Seçiniz</option>
+        </select>
+        <span asp-validation-for="TeacherId"></span>
+    </div>
+    <div class="justify-content-end d-flex">
+        <button type="submit" class="btn btn-outline-primary">Kaydet</button>
+    </div>
+</form>

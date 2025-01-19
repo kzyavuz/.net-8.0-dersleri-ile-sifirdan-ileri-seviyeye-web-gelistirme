@@ -1,0 +1,45 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Kurs Güncelleme Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Component.InvokeAsync("HeaderWithBackButton", new { pageTitle = ViewData["Title"] as string })
+<div class="row">
+    <div class="col-8">
+        <h4 class="text-primary">Kurs bilgisi</h4>
+        <hr class="text-primary">
+        <form asp-action="Edit" asp-controller="Course" method="post">
+            <input type="hidden" asp-for="CourseId" />
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TeacherId" class="form-label"></label>
+                <select asp-for="TeacherId" class="form-select" asp-items="@ViewBag.Teachers">
+                    <option value="">Seçiniz</option>
+                </select>
+                <span asp-validation-for="TeacherId"></span>
+            </div>
+
+            <div class="justify-content-end d-flex">
+                <button type="submit" class="btn btn-outline-primary">Güncelle</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+        <h4 class="text-primary">Kayıtlı Öğrencisi bilgisi</h4>
+        <hr class="text-primary">
+        <ol class="row">
+            @foreach (var item in Model.Registration)
+            {
+                <li class="col-6">
+                    @(item.Student?.FullName ?? "")
+                </li>
+            }
+        </ol>
+    </div>
+</div>
